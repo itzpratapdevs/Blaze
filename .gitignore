@@ -1,0 +1,57 @@
+# Blaze Engine
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+lib/
+dist/
+build/
+
+# Native builds
+android/build/
+android/.gradle/
+android/local.properties
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+*.xcuserstate
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Misc
+*.tgz
+.cache/
+.turbo/
+
+# Example app builds
+example/android/build/
+example/android/.gradle/
+example/ios/build/
+example/ios/Pods/

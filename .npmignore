@@ -1,0 +1,19 @@
+# Blaze Engine
+
+# Dependencies
+node_modules/
+
+# Build artifacts  
+lib/
+dist/
+
+# Test coverage
+coverage/
+
+# IDE
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
