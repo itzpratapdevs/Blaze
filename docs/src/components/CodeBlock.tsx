@@ -8,7 +8,7 @@ interface CodeBlockProps {
 export function CodeBlock({ code, language = 'tsx' }: CodeBlockProps) {
     return (
         <Highlight theme={themes.nightOwl} code={code.trim()} language={language}>
-            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            {({ style, tokens, getLineProps, getTokenProps }) => (
                 <pre
                     className="rounded-xl overflow-x-auto text-sm my-4"
                     style={{ ...style, padding: '1.25rem', background: '#0d1117' }}

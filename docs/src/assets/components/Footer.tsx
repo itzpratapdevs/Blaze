@@ -5,7 +5,7 @@ export function Footer() {
         <footer className="bg-black border-t border-neutral-900 py-8">
             <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
                 <div className="flex items-center gap-2">
-                    <span>🔥</span>
+                    <img src="/logo.png" alt="Blaze" className="w-6 h-6 object-contain" />
                     <span>blaze-engine</span>
                     <span>•</span>
                     <span>MIT License</span>

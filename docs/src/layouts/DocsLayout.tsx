@@ -16,12 +16,12 @@ export function DocsLayout() {
                             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                         </button>
 
-                        <Link to="/" className="flex items-center gap-2">
-                            <span className="text-xl">🔥</span>
-                            <span className="font-bold text-white">Blaze</span>
-                            <span className="hidden sm:block px-2 py-0.5 bg-orange-500/10 text-orange-400 text-xs font-medium rounded-full">
-                                docs
-                            </span>
+                        <Link to="/" className="flex items-center gap-3">
+                            <img src="/logo.png" alt="Blaze" className="w-8 h-8 object-contain" />
+                            <div className="flex flex-col leading-none">
+                                <span className="font-bold text-white text-lg">Blaze</span>
+                                <span className="text-[10px] text-neutral-500 font-mono tracking-wider">ENGINE</span>
+                            </div>
                         </Link>
 
                         {/* Search */}

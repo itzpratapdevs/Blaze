@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Copy, Check, Github, Package, BookOpen, ArrowRight } from 'lucide-react'
+import { Copy, Check, Github, BookOpen } from 'lucide-react'
 import { useState } from 'react'
 
 export function Hero() {
@@ -15,8 +15,8 @@ export function Hero() {
         <section className="pt-32 pb-20 bg-black">
             <div className="max-w-4xl mx-auto px-6 text-center">
                 {/* Package name */}
-                <div className="flex items-center justify-center gap-3 mb-6">
-                    <span className="text-4xl">🔥</span>
+                <div className="flex items-center justify-center gap-4 mb-6">
+                    <img src="/logo.png" alt="Blaze Logo" className="w-16 h-16 object-contain" />
                     <h1 className="text-4xl md:text-5xl font-bold text-white">blaze-engine</h1>
                 </div>
 
