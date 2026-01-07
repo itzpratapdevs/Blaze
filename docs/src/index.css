@@ -102,3 +102,128 @@ code {
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Mobile-friendly scrollbar */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+  }
+}
+
+/* Code block responsiveness */
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 640px) {
+  pre {
+    padding: 1rem !important;
+    border-radius: 12px;
+    font-size: 0.75rem;
+  }
+  
+  code {
+    font-size: 0.75rem;
+  }
+}
+
+/* Prose responsive typography */
+@media (max-width: 768px) {
+  .prose h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  
+  .prose h2 {
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+  
+  .prose h3 {
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+  
+  .prose p,
+  .prose li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .prose ul,
+  .prose ol {
+    padding-left: 1.25rem;
+  }
+}
+
+/* Better touch targets on mobile */
+@media (max-width: 768px) {
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Exception for inline links */
+  .prose a {
+    min-height: auto;
+    min-width: auto;
+  }
+}
+
+/* Mobile-friendly tables (if any) */
+@media (max-width: 640px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Improve focus visibility on mobile */
+@media (max-width: 768px) {
+  *:focus-visible {
+    outline-offset: 4px;
+  }
+}
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Image responsiveness */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile utility classes */
+@media (max-width: 640px) {
+  .mobile-px {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-text-center {
+    text-align: center;
+  }
+}
+
+/* Custom mobile scrollbar for touch devices */
+@supports (-webkit-touch-callout: none) {
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+}

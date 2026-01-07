@@ -11,19 +11,19 @@ const features = [
 
 export function Features() {
     return (
-        <section className="py-20 bg-black border-t border-neutral-900">
-            <div className="max-w-4xl mx-auto px-6">
-                <h2 className="text-2xl font-bold text-white mb-8">Why Blaze?</h2>
+        <section className="py-12 sm:py-20 bg-black border-t border-neutral-900">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6 sm:mb-8">Why Blaze?</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     {features.map((f, i) => (
-                        <div key={i} className="flex gap-4">
-                            <div className="w-10 h-10 bg-neutral-900 border border-neutral-800 rounded-lg flex items-center justify-center shrink-0">
-                                <f.icon className="w-5 h-5 text-orange-500" />
+                        <div key={i} className="flex gap-3 sm:gap-4 p-3 sm:p-0 rounded-lg sm:rounded-none bg-neutral-900/50 sm:bg-transparent">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-neutral-900 border border-neutral-800 rounded-lg flex items-center justify-center shrink-0">
+                                <f.icon className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
                             </div>
-                            <div>
-                                <h3 className="font-semibold text-white mb-1">{f.title}</h3>
-                                <p className="text-sm text-neutral-500">{f.desc}</p>
+                            <div className="min-w-0">
+                                <h3 className="font-semibold text-white text-sm sm:text-base mb-0.5 sm:mb-1">{f.title}</h3>
+                                <p className="text-xs sm:text-sm text-neutral-500 leading-relaxed">{f.desc}</p>
                             </div>
                         </div>
                     ))}
@@ -31,32 +31,32 @@ export function Features() {
             </div>
 
             {/* APIs section */}
-            <div className="max-w-4xl mx-auto px-6 mt-16">
-                <h2 className="text-2xl font-bold text-white mb-8">Works Everywhere</h2>
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-12 sm:mt-16">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-6 sm:mb-8">Works Everywhere</h2>
 
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                     {/* Web */}
-                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-6">
-                        <div className="text-lg font-bold text-white mb-2">React.js</div>
-                        <p className="text-sm text-neutral-500 mb-4">Drop into any Vite/Create-React-App project.</p>
-                        <div className="text-xs font-mono bg-neutral-900 p-2 rounded text-neutral-400">
+                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-4 sm:p-6">
+                        <div className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">React.js</div>
+                        <p className="text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">Drop into any Vite/Create-React-App project.</p>
+                        <div className="text-xs font-mono bg-neutral-900 p-2 rounded text-neutral-400 overflow-x-auto">
                             npm install blaze-engine
                         </div>
                     </div>
 
                     {/* Next.js */}
-                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-6">
-                        <div className="text-lg font-bold text-white mb-2">Next.js</div>
-                        <p className="text-sm text-neutral-500 mb-4">SSR compatible. Perfect for game portals.</p>
+                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-4 sm:p-6">
+                        <div className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">Next.js</div>
+                        <p className="text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">SSR compatible. Perfect for game portals.</p>
                         <div className="text-xs font-mono bg-neutral-900 p-2 rounded text-neutral-400">
                             'use client'
                         </div>
                     </div>
 
                     {/* Native */}
-                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-6">
-                        <div className="text-lg font-bold text-white mb-2">React Native</div>
-                        <p className="text-sm text-neutral-500 mb-4">Native performance on iOS and Android.</p>
+                    <div className="bg-neutral-950 border border-neutral-800 rounded-xl p-4 sm:p-6">
+                        <div className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">React Native</div>
+                        <p className="text-xs sm:text-sm text-neutral-500 mb-3 sm:mb-4">Native performance on iOS and Android.</p>
                         <div className="text-xs font-mono bg-neutral-900 p-2 rounded text-neutral-400">
                             JSI + Skia Native
                         </div>
