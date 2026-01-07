@@ -3,9 +3,11 @@ import { GameLoop, GameLoopState } from './GameLoop';
 import { Renderer } from '../rendering/Renderer';
 import { Camera } from '../rendering/Camera';
 import { TouchInput } from '../input/TouchInput';
+import { KeyboardInput } from '../input/KeyboardInput';
 import { Time } from '../utils/Time';
 import { Logger } from '../utils/Logger';
 import type { SkCanvas } from '@shopify/react-native-skia';
+import { Platform } from 'react-native';
 
 /**
  * Game configuration options.
@@ -67,6 +69,7 @@ export class Game {
     private _renderer: Renderer | null = null;
     private _camera: Camera;
     private _touchInput: TouchInput;
+    private _keyboardInput: KeyboardInput;
 
     // ===============================
     // Scene management
@@ -94,6 +97,12 @@ export class Game {
         this._gameLoop = new GameLoop();
         this._camera = new Camera(this._width, this._height);
         this._touchInput = new TouchInput();
+        this._keyboardInput = new KeyboardInput();
+
+        // Setup web keyboard listeners if on web
+        if (Platform.OS === 'web') {
+            this._keyboardInput.setupWebListeners();
+        }
 
         // Set target FPS
         if (config.targetFPS) {
@@ -109,7 +118,7 @@ export class Game {
         this._gameLoop.onFrame(this._onFrame.bind(this));
         this._gameLoop.onFixedUpdate(this._onFixedUpdate.bind(this));
 
-        Logger.info('Game created', { width: this._width, height: this._height });
+        Logger.info('Game created', { width: this._width, height: this._height, platform: Platform.OS });
     }
 
     // ===============================
@@ -134,6 +143,10 @@ export class Game {
 
     get touchInput(): TouchInput {
         return this._touchInput;
+    }
+
+    get keyboard(): KeyboardInput {
+        return this._keyboardInput;
     }
 
     get renderer(): Renderer | null {
@@ -180,6 +193,11 @@ export class Game {
         if (this._currentScene) {
             this._currentScene._unload();
             this._currentScene = null;
+        }
+
+        // Cleanup keyboard listeners
+        if (Platform.OS === 'web') {
+            this._keyboardInput.removeWebListeners();
         }
 
         this._gameLoop.stop();
@@ -310,6 +328,7 @@ export class Game {
     private _onFrame(dt: number): void {
         // Poll input (for frame-safe access)
         this._touchInput._poll();
+        this._keyboardInput._poll();
 
         // Update camera
         this._camera.update(dt);

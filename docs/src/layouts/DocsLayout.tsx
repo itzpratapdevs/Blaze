@@ -7,9 +7,9 @@ export function DocsLayout() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
-        <div className="min-h-screen bg-black">
-            {/* Header */}
-            <header className="fixed top-0 w-full z-50 h-16 bg-black/80 backdrop-blur-2xl border-b border-white/5">
+        <div className="h-screen flex flex-col bg-black overflow-hidden">
+            {/* Header - Fixed Height */}
+            <header className="flex-none h-16 w-full z-50 bg-black/80 backdrop-blur-2xl border-b border-white/5">
                 <div className="h-full max-w-[1600px] mx-auto px-6 flex items-center justify-between">
                     <div className="flex items-center gap-6">
                         <button className="lg:hidden text-neutral-400" onClick={() => setSidebarOpen(!sidebarOpen)}>
@@ -17,7 +17,7 @@ export function DocsLayout() {
                         </button>
 
                         <Link to="/" className="flex items-center gap-3">
-                            <img src="/logo.png" alt="Blaze" className="w-8 h-8 object-contain" />
+                            <img src="/logo.webp" alt="Blaze" className="w-8 h-8 object-contain" />
                             <div className="flex flex-col leading-none">
                                 <span className="font-bold text-white text-lg">Blaze</span>
                                 <span className="text-[10px] text-neutral-500 font-mono tracking-wider">ENGINE</span>
@@ -46,19 +46,35 @@ export function DocsLayout() {
                 </div>
             </header>
 
-            <div className="flex pt-16">
-                {/* Sidebar */}
-                <aside className={`fixed lg:static inset-y-0 left-0 z-40 w-72 bg-black/95 backdrop-blur-2xl border-r border-white/5 transform transition-transform lg:transform-none ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} pt-16 lg:pt-0`}>
-                    <div className="h-full overflow-y-auto p-6">
+            {/* Main Layout Area */}
+            <div className="flex-1 flex overflow-hidden max-w-[1600px] mx-auto w-full">
+
+                {/* Desktop Sidebar - Fixed Width, Scrollable */}
+                <aside className="hidden lg:block w-72 flex-none border-r border-white/5 overflow-y-auto custom-scrollbar">
+                    <div className="p-6 pb-20">
                         <Sidebar />
                     </div>
                 </aside>
 
-                {sidebarOpen && <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 lg:hidden" onClick={() => setSidebarOpen(false)} />}
+                {/* Mobile Sidebar - Overlay */}
+                <div className={`fixed inset-0 z-40 lg:hidden ${sidebarOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+                    {/* Backdrop */}
+                    <div
+                        className={`absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0'}`}
+                        onClick={() => setSidebarOpen(false)}
+                    />
 
-                {/* Content */}
-                <main className="flex-1 min-h-[calc(100vh-4rem)]">
-                    <div className="max-w-4xl mx-auto px-6 lg:px-12 py-12">
+                    {/* Drawer */}
+                    <div className={`absolute inset-y-0 left-0 w-72 bg-neutral-900 border-r border-white/10 transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                        <div className="h-full overflow-y-auto p-6">
+                            <Sidebar />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Main Content Areas - Scrollable */}
+                <main className="flex-1 overflow-y-auto custom-scrollbar scroll-smooth">
+                    <div className="max-w-4xl mx-auto px-6 lg:px-12 py-12 pb-24">
                         <article className="prose prose-invert max-w-none prose-headings:text-white prose-p:text-neutral-400 prose-a:text-orange-400 prose-strong:text-white prose-code:text-amber-400">
                             <Outlet />
                         </article>

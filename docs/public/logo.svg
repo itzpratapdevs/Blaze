@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="flameGradient" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <path d="M256 0C256 0 120 180 120 320C120 426.04 180.88 512 256 512C331.12 512 392 426.04 392 320C392 180 256 0 256 0Z" fill="url(#flameGradient)" filter="url(#glow)">
+    <animate attributeName="d" 
+      dur="2s" 
+      repeatCount="indefinite" 
+      values="
+        M256 0C256 0 120 180 120 320C120 426.04 180.88 512 256 512C331.12 512 392 426.04 392 320C392 180 256 0 256 0Z;
+        M256 10C266 10 130 190 130 325C130 430 185 512 256 512C327 512 382 430 382 325C382 190 256 10 256 10Z;
+        M256 0C256 0 120 180 120 320C120 426.04 180.88 512 256 512C331.12 512 392 426.04 392 320C392 180 256 0 256 0Z"
+    />
+  </path>
+  <path d="M256 120C256 120 190 240 190 320C190 380 220 430 256 430C292 430 322 380 322 320C322 240 256 120 256 120Z" fill="#ffedd5" opacity="0.6" />
+</svg>

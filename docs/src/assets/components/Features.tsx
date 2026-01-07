@@ -1,12 +1,12 @@
 import { Zap, Layers, Code2, Globe, Gamepad2, Sparkles } from 'lucide-react'
 
 const features = [
-    { icon: Globe, title: "Universal Engine", desc: "Build for React.js, Next.js, and React Native with one codebase." },
-    { icon: Code2, title: "React Hooks API", desc: "Modern declarative game logic using hooks you already know." },
-    { icon: Zap, title: "High Performance", desc: "JSI on Native. WebAssembly on Web. 60fps everywhere." },
-    { icon: Layers, title: "ECS Architecture", desc: "Scale complex games with Entity-Component-System." },
-    { icon: Gamepad2, title: "Collision", desc: "Built-in physics and collision detection system." },
-    { icon: Sparkles, title: "Assets & Audio", desc: "Unified asset loading and audio for all platforms." }
+    { icon: Globe, title: "Universal Engine", desc: "Write once. Run continuously on React Web, Next.js, iOS, and Android." },
+    { icon: Code2, title: "React Hooks API", desc: "Modern declarative game logic. Use standard React state and effects." },
+    { icon: Gamepad2, title: "Input System", desc: "Multi-touch for mobile. Keyboard & Mouse for web. Zero config." },
+    { icon: Layers, title: "ECS", desc: "Scalable Entity-Component-System architecture for complex game logic." },
+    { icon: Sparkles, title: "Skia Rendering", desc: "Powered by Skia (Chrome's rendering engine). Blazing fast 2D graphics." },
+    { icon: Zap, title: "Physics & Collision", desc: "Built-in AABB collision detection and physics step management." }
 ]
 
 export function Features() {

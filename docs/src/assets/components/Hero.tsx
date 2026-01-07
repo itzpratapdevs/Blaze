@@ -16,7 +16,7 @@ export function Hero() {
             <div className="max-w-4xl mx-auto px-6 text-center">
                 {/* Package name */}
                 <div className="flex items-center justify-center gap-4 mb-6">
-                    <img src="/logo.png" alt="Blaze Logo" className="w-16 h-16 object-contain" />
+                    <img src="/logo.webp" alt="Blaze Logo" className="w-16 h-16 object-contain" />
                     <h1 className="text-4xl md:text-5xl font-bold text-white">blaze-engine</h1>
                 </div>
 

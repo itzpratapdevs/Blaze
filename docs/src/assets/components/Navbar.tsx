@@ -7,7 +7,7 @@ export function Navbar() {
             <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-3">
-                    <img src="/logo.png" alt="Blaze" className="w-8 h-8 object-contain" />
+                    <img src="/logo.webp" alt="Blaze" className="w-8 h-8 object-contain" />
                     <span className="font-semibold text-white">blaze-engine</span>
                 </Link>
 

@@ -1,5 +1,6 @@
 import { Time } from '../utils/Time';
 import { Logger } from '../utils/Logger';
+import { Platform } from 'react-native';
 
 /**
  * Callback function for frame updates.
@@ -29,6 +30,9 @@ export class GameLoop {
     private _lastTime: number = 0;
     private _accumulator: number = 0;
     private _rafId: number | null = null;
+
+    // Flag to fast-track web logic
+    private _isWeb: boolean = Platform.OS === 'web';
 
     private _onFrame: FrameCallback | null = null;
     private _onFixedUpdate: FrameCallback | null = null;
@@ -117,7 +121,7 @@ export class GameLoop {
             return;
         }
 
-        Logger.info('GameLoop: starting');
+        Logger.info(`GameLoop: starting (Platform: ${Platform.OS})`);
         this._state = GameLoopState.Running;
         this._lastTime = performance.now();
         this._accumulator = 0;
@@ -166,7 +170,15 @@ export class GameLoop {
     // ===============================
 
     private _scheduleFrame(): void {
-        this._rafId = requestAnimationFrame(this._loop);
+        // On Web, requestAnimationFrame is the standard and most performant way
+        // On Native, we might eventually use JSI bindings directly, but rn-skia handles the canvas loop
+        // However, for game logic, we need our own loop
+        if (this._isWeb) {
+            this._rafId = requestAnimationFrame(this._loop);
+        } else {
+            // Native fallback (requestAnimationFrame in RN is backed by Choreographer/DisplayLink)
+            this._rafId = requestAnimationFrame(this._loop);
+        }
     }
 
     private _cancelFrame(): void {
