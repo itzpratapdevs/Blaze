@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color-scheme: dark;
+  color: #ffffff;
+  background-color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: #000000;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f97316, #f59e0b);
+  border-radius: 3px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(249, 115, 22, 0.4);
+  color: white;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* Code */
+pre {
+  background: rgba(10, 10, 10, 0.8) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem !important;
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875rem;
+}
+
+/* Prose */
+.prose {
+  --tw-prose-body: #a3a3a3;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-links: #f97316;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-code: #fbbf24;
+}
+
+.prose a {
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: #fb923c;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
