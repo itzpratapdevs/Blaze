@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Github, Package } from 'lucide-react'
+import { Package } from 'lucide-react'
 
 export function Navbar() {
     return (
@@ -16,9 +16,6 @@ export function Navbar() {
                     <Link to="/docs" className="text-xs sm:text-sm text-neutral-400 hover:text-white transition-colors">
                         Docs
                     </Link>
-                    <a href="https://github.com/itzpratapdevs/Blaze" target="_blank" className="text-neutral-400 hover:text-white transition-colors p-1">
-                        <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </a>
                     <a href="https://www.npmjs.com/package/blaze-engine" target="_blank" className="text-neutral-400 hover:text-white transition-colors p-1">
                         <Package className="w-4 h-4 sm:w-5 sm:h-5" />
                     </a>

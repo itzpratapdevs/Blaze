@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Copy, Check, Github, BookOpen } from 'lucide-react'
+import { Copy, Check, BookOpen } from 'lucide-react'
 import { useState } from 'react'
 import { Highlight, themes } from 'prism-react-renderer'
 
@@ -55,14 +55,6 @@ export function Hero() {
                         <BookOpen className="w-4 h-4" />
                         Start Building
                     </Link>
-                    <a
-                        href="https://github.com/itzpratapdevs/Blaze"
-                        target="_blank"
-                        className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 border border-neutral-700 text-neutral-300 hover:bg-neutral-900 rounded-lg transition-colors"
-                    >
-                        <Github className="w-4 h-4" />
-                        GitHub
-                    </a>
                 </div>
 
                 {/* Version badge */}

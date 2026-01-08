@@ -1,89 +1,116 @@
-import { CodeBlock } from '../../components/CodeBlock'
+import { CodeBlock } from '../../components/CodeBlock';
 
-export function CameraDoc() {
+export default function CameraPage() {
   return (
-    <>
+    <article className="docs-content">
       <h1>Camera</h1>
-      <p>The Camera controls what portion of the game world is visible and provides smooth following, zoom, and shake effects.</p>
+      <p className="lead">
+        Control the viewport with smooth follow, zoom, bounds, and screen shake effects.
+      </p>
 
-      <h2>Accessing the Camera</h2>
-      <CodeBlock code={`const { game } = useGame({ width: 360, height: 640 });
-const camera = game.camera;`} />
+      <h2>Basic Usage</h2>
+      <CodeBlock code={`import { BlazeGame, Camera, Sprite } from 'blaze-engine';
 
-      <h2>Camera Properties</h2>
-      <CodeBlock code={`camera.x        // Camera X position
-camera.y        // Camera Y position
-camera.zoom     // Zoom level (1 = normal)
-camera.rotation // Rotation in radians`} />
+function Game() {
+    return (
+        <BlazeGame width={800} height={600}>
+            <Camera followSpeed={0.1}>
+                <Player />
+                <Level />
+            </Camera>
+        </BlazeGame>
+    );
+}`} />
 
       <h2>Following a Target</h2>
-      <CodeBlock code={`// Follow player with smoothing
-camera.follow(player.x, player.y, {
-  lerp: 0.1,           // Smoothing (0-1)
-  offsetX: 0,          // Offset from target
-  offsetY: -100,       // Look ahead
-  deadZone: { x: 50, y: 50 } // No movement zone
-});
-
-// Or snap immediately
-camera.setPosition(player.x, player.y);`} />
+      <p>Use the <code>useCamera</code> hook to make the camera follow the player:</p>
+      <CodeBlock code={`function Player() {
+    const [x, setX] = useState(100);
+    const [y, setY] = useState(100);
+    const camera = useCamera();
+    
+    useGameLoop((dt) => {
+        // Move player...
+        setX(x => x + dx);
+        
+        // Update camera to follow
+        camera.follow(x, y, 0.1);
+    });
+    
+    return <Sprite src="/player.png" x={x} y={y} />;
+}`} />
 
       <h2>Camera Bounds</h2>
-      <CodeBlock code={`// Limit camera to world bounds
-camera.setBounds({
-  minX: 0,
-  minY: 0,
-  maxX: 2000,  // World width
-  maxY: 1000   // World height
-});
-
-// Remove bounds
-camera.clearBounds();`} />
-
-      <h2>Zoom</h2>
-      <CodeBlock code={`camera.zoom = 1.5;  // Zoom in
-camera.zoom = 0.5;  // Zoom out
-camera.zoom = 1;    // Normal
-
-// Zoom to point
-camera.zoomTo(2, playerX, playerY);`} />
+      <p>Constrain the camera to world boundaries:</p>
+      <CodeBlock code={`<Camera 
+    bounds={{ 
+        x: 0, 
+        y: 0, 
+        width: 2000,   // World width
+        height: 1000   // World height
+    }}
+>
+    {/* Game content */}
+</Camera>`} />
 
       <h2>Screen Shake</h2>
-      <CodeBlock code={`// Quick shake
-camera.shake(10, 0.3); // intensity, duration
+      <p>Add impact effects with screen shake:</p>
+      <CodeBlock code={`function Explosion({ x, y }) {
+    const camera = useCamera();
+    
+    useEffect(() => {
+        // Shake: intensity 10px, duration 0.3s
+        camera.shake(10, 0.3);
+    }, []);
+    
+    return <ParticleSystem x={x} y={y} />;
+}
 
-// Explosion shake
-camera.shake(25, 0.5);
+// Or use the component:
+<ScreenShake 
+    trigger={explosionOccurred} 
+    intensity={15} 
+    duration={0.5} 
+/>`} />
 
-// Check if shaking
-if (camera.isShaking) { ... }`} />
+      <h2>Zoom</h2>
+      <CodeBlock code={`const camera = useCamera();
+
+// Zoom in
+camera.setZoom(2);
+
+// Zoom out
+camera.setZoom(0.5);`} />
 
       <h2>Coordinate Conversion</h2>
-      <CodeBlock code={`// Screen coords → World coords
-const worldPos = camera.screenToWorld(touchX, touchY);
+      <p>Convert between world and screen coordinates:</p>
+      <CodeBlock code={`const camera = useCamera();
 
-// World coords → Screen coords
-const screenPos = camera.worldToScreen(enemy.x, enemy.y);`} />
+// World position to screen position
+const screenPos = camera.worldToScreen(worldX, worldY);
 
-      <h2>Example: Camera Follow</h2>
-      <CodeBlock code={`function Game() {
-  const { game } = useGame({ width: 360, height: 640 });
-  const playerX = useRef(180);
-  const playerY = useRef(300);
+// Screen position (e.g., mouse) to world position
+const worldPos = camera.screenToWorld(input.position.x, input.position.y);`} />
 
-  useGameLoop((dt) => {
-    // Move player
-    playerX.current += 50 * dt;
-    
-    // Camera follows player
-    game.camera.follow(playerX.current, playerY.current, {
-      lerp: 0.08,
-      offsetY: -50
-    });
-  });
-
-  return <BlazeCanvas game={game} />;
-}`} />
-    </>
-  )
+      <h2>Props Reference</h2>
+      <table className="docs-table">
+        <thead>
+          <tr>
+            <th>Prop</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>x</td><td>number</td><td>0</td><td>Initial X position</td></tr>
+          <tr><td>y</td><td>number</td><td>0</td><td>Initial Y position</td></tr>
+          <tr><td>zoom</td><td>number</td><td>1</td><td>Zoom level (1 = 100%)</td></tr>
+          <tr><td>rotation</td><td>number</td><td>0</td><td>Rotation in radians</td></tr>
+          <tr><td>bounds</td><td>object</td><td>-</td><td>World bounds constraint</td></tr>
+          <tr><td>followSpeed</td><td>number</td><td>0.1</td><td>Smooth follow speed (0-1)</td></tr>
+        </tbody>
+      </table>
+    </article>
+  );
 }

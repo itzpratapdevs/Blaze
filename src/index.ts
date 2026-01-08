@@ -1,147 +1,237 @@
 // ============================================
-// BLAZE - 2D Game Engine for React Native
+// BLAZE ENGINE v1.0.0
+// The simplest 2D game engine for React
 // ============================================
 
 /**
  * @packageDocumentation
- * @module blaze
+ * @module blaze-engine
  *
- * Blaze is a lightweight 2D game engine for React Native,
- * inspired by Flutter Flame. Build arcade games, endless runners,
- * quiz games, and gamified experiences with clean TypeScript APIs.
+ * Blaze is a React-first 2D game engine. Build games using
+ * familiar React patterns - components, hooks, and state.
+ * 
+ * Features: Sprites, Particles, Tilemaps, Physics, Camera, UI, Audio, and more!
+ * Any React library works inside your games!
  *
  * @example
- * ```typescript
- * import { Game, Scene, Sprite, AssetLoader, BlazeCanvas } from 'blaze-engine';
+ * ```tsx
+ * import { BlazeGame, Sprite, useGameLoop, useInput } from 'blaze-engine';
  *
- * class MyGameScene extends Scene {
- *   private player!: Sprite;
- *
- *   async onLoad() {
- *     await AssetLoader.loadImages(['player.png']);
- *     this.player = new Sprite({
- *       image: AssetLoader.getImage('player'),
- *       x: 100,
- *       y: 200,
- *     });
- *   }
- *
- *   onUpdate(dt: number) {
- *     this.player.x += 100 * dt;
- *   }
- *
- *   onRender(renderer: Renderer) {
- *     renderer.draw(this.player);
- *   }
+ * function Player() {
+ *   const [x, setX] = useState(100);
+ *   const input = useInput();
+ *   
+ *   useGameLoop((dt) => {
+ *     if (input.isKeyDown('ArrowRight')) setX(x => x + 200 * dt);
+ *     if (input.isKeyDown('ArrowLeft')) setX(x => x - 200 * dt);
+ *   });
+ *   
+ *   return <Sprite src="/player.png" x={x} y={300} />;
  * }
  *
- * const game = new Game({ width: 360, height: 640 });
- * game.setScene(new MyGameScene());
- * game.start();
+ * function App() {
+ *   return (
+ *     <BlazeGame width={800} height={600}>
+ *       <Player />
+ *     </BlazeGame>
+ *   );
+ * }
  * ```
  */
 
-// Core
-export { Game, GameConfig } from './core/Game';
-export { GameLoop, GameLoopState, FrameCallback, globalGameLoop } from './core/GameLoop';
-export { Scene, SceneState } from './core/Scene';
-export { Entity } from './core/Entity';
-export { Component, ComponentType } from './core/Component';
-export { System, RenderSystem } from './core/System';
+// ============================================
+// CORE COMPONENTS
+// ============================================
 
-// Rendering
-export { Renderer, TextOptions, CircleOptions, LineOptions } from './rendering/Renderer';
-export { Sprite, SpriteOptions, SpriteAnchor } from './rendering/Sprite';
-export { Camera } from './rendering/Camera';
-export { BlazeCanvas, BlazeCanvasProps } from './rendering/BlazeCanvas';
-
-// Animation (NEW in v0.2.0)
-export { SpriteSheet, SpriteSheetConfig, SpriteFrame } from './animation/SpriteSheet';
-export { SpriteAnimation, AnimationConfig, AnimationPlayMode } from './animation/SpriteAnimation';
-export { AnimatedSprite } from './animation/AnimatedSprite';
-
-// Input
-export { TouchInput, TouchPoint, TouchPhase, TouchCallback } from './input/TouchInput';
-export { KeyboardInput } from './input/KeyboardInput';
 export {
-    GestureRecognizer,
-    SwipeDirection,
-    TapCallback,
-    LongPressCallback,
-    SwipeCallback,
-    PinchCallback,
-    PanCallback,
-} from './input/GestureRecognizer';
-
-// Collision
-export { AABB } from './collision/AABB';
-export {
-    Collider,
-    CollisionLayer,
-    CollisionLayers,
-    CollisionData,
-    CollisionCallback,
-} from './collision/Collider';
-export { Circle } from './collision/Circle';
-
-// Math
-export { Vector2 } from './math/Vector2';
-export { Rect } from './math/Rect';
-
-// Assets
-export { AssetLoader, Assets, AssetProgressCallback, AssetType } from './assets/AssetLoader';
-
-// Audio (NEW in v0.2.0)
-export { AudioManager, SoundOptions, MusicOptions } from './audio/AudioManager';
-
-// Effects (NEW in v0.2.0)
-export { Timer, TimerCallback, TimerState, TimerManager } from './effects/Timer';
-export { Tween, TweenConfig, TweenState, TweenManager } from './effects/Tween';
-export { Easing, EasingFunction, getEasing } from './effects/Easing';
-
-// UI (NEW in v0.2.0)
-export { OverlayManager, OverlayConfig, OverlayProps } from './ui/OverlayManager';
-
-// Debug (NEW in v0.2.0)
-export { DebugRenderer, DebugSettings } from './debug/DebugRenderer';
-export { PerformanceMonitor, PerformanceEntry } from './debug/PerformanceMonitor';
-
-// Utils
-export { Time } from './utils/Time';
-export { Logger, LogLevel } from './utils/Logger';
-
-// Hooks (NEW - Component-based architecture)
-export {
+    BlazeGame,
     useGame,
-    useGameState,
+    type BlazeGameProps,
+    type GameConfig,
+    type GameState,
+    type GameContextValue,
+} from './components/BlazeGame';
+
+// ============================================
+// SPRITE COMPONENTS
+// ============================================
+
+export {
+    Sprite,
+    AnimatedSprite,
+    type SpriteProps,
+    type SpriteRef,
+    type AnimatedSpriteProps,
+    type AnimatedSpriteRef,
+} from './components/Sprite';
+
+// ============================================
+// SHAPE COMPONENTS
+// ============================================
+
+export {
+    Rectangle,
+    Circle,
+    Line,
+    Polygon,
+    Text,
+    type RectangleProps,
+    type CircleProps,
+    type LineProps,
+    type PolygonProps,
+    type TextProps,
+} from './components/Shapes';
+
+// ============================================
+// EFFECTS COMPONENTS
+// ============================================
+
+export {
+    ParticleSystem,
+    Parallax,
+    ParallaxLayer,
+    TiledBackground,
+    type ParticleSystemProps,
+    type ParallaxProps,
+    type ParallaxLayerProps,
+    type TiledBackgroundProps,
+} from './components/Effects';
+
+// ============================================
+// CAMERA
+// ============================================
+
+export {
+    Camera,
+    useCamera,
+    ScreenShake,
+    type CameraProps,
+    type CameraState,
+    type CameraContextValue,
+    type ScreenShakeProps,
+} from './components/Camera';
+
+// ============================================
+// UI COMPONENTS
+// ============================================
+
+export {
+    Joystick,
+    Button,
+    ProgressBar,
+    NineSlice,
+    type JoystickProps,
+    type ButtonProps,
+    type ProgressBarProps,
+    type NineSliceProps,
+} from './components/UI';
+
+// ============================================
+// WORLD COMPONENTS (Tilemap, Physics, Scene)
+// ============================================
+
+export {
+    Tilemap,
+    useTilemap,
+    SceneManager,
+    Scene,
+    useSceneManager,
+    Rigidbody,
+    useRigidbody,
+    type TilemapProps,
+    type TilemapRef,
+    type SceneManagerProps,
+    type SceneProps,
+    type RigidbodyProps,
+    type RigidbodyState,
+} from './components/World';
+
+// ============================================
+// CORE HOOKS
+// ============================================
+
+export {
+    useInput,
     useGameLoop,
-    useFrameTime,
     useFixedUpdate,
-    useAssets,
-    useImage,
-    useTouch,
-    useTap,
-    useDrag,
-    useSwipe,
     useTimer,
-    useDelay,
     useInterval,
+    useDelay,
+    type InputState,
+    type Timer,
+} from './hooks/core';
+
+// ============================================
+// ANIMATION HOOKS
+// ============================================
+
+export {
     useTween,
     useSpring,
-    useTweenSequence,
-} from './hooks';
+    useAnimatedValue,
+    Easing,
+    type TweenConfig,
+    type TweenControls,
+    type SpringConfig,
+    type SpringControls,
+    type EasingFunction,
+} from './hooks/animation';
 
-// Components (NEW - React component wrappers)
+// ============================================
+// COLLISION HOOKS & UTILS
+// ============================================
+
 export {
-    Sprite as SpriteComponent,
-    SpriteProps,
-    SpriteProvider,
-    useSpriteRef,
-    Collider as ColliderComponent,
-    ColliderProps,
-    ColliderProvider,
     useCollision,
-} from './components';
+    CollisionSystem,
+    pointInBounds,
+    boundsOverlap,
+    circleCollision,
+    pointInCircle,
+    type Bounds,
+    type CollisionInfo,
+    type UseCollisionOptions,
+} from './hooks/collision';
 
-// Version
-export const VERSION = '0.2.0';
+// ============================================
+// ASSET HOOKS
+// ============================================
+
+export {
+    useAssets,
+    useImage,
+    useAudio,
+    type AssetManifest,
+    type AssetsState,
+    type AudioControls,
+} from './hooks/assets';
+
+// ============================================
+// MATH UTILITIES
+// ============================================
+
+export {
+    Vector2,
+    Rectangle as Rect,
+    clamp,
+    lerp,
+    inverseLerp,
+    map,
+    degToRad,
+    radToDeg,
+    randomInt,
+    randomFloat,
+    randomElement,
+    shuffle,
+    wrap,
+    smoothstep,
+    approxEqual,
+    type Vec2,
+    type Rect as RectType,
+} from './math';
+
+// ============================================
+// VERSION
+// ============================================
+
+export const VERSION = '1.0.0';

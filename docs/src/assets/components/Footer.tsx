@@ -12,7 +12,6 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-4 sm:gap-6">
                     <Link to="/docs" className="hover:text-white transition-colors">Documentation</Link>
-                    <a href="https://github.com/itzpratapdevs/Blaze" target="_blank" className="hover:text-white transition-colors">GitHub</a>
                     <a href="https://www.npmjs.com/package/blaze-engine" target="_blank" className="hover:text-white transition-colors">NPM</a>
                 </div>
             </div>

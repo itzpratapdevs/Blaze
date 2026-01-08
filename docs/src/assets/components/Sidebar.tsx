@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, Book, Box, Layers, Code2, Gamepad2, Sparkles, Layout } from 'lucide-react'
 
 interface SidebarSection {
     title: string
+    icon: React.ComponentType<{ className?: string }>
     badge?: string
     items: { label: string; href: string }[]
 }
@@ -10,6 +11,7 @@ interface SidebarSection {
 const sections: SidebarSection[] = [
     {
         title: "Getting Started",
+        icon: Book,
         items: [
             { label: "Introduction", href: "/docs" },
             { label: "Installation", href: "/docs/installation" },
@@ -17,67 +19,135 @@ const sections: SidebarSection[] = [
         ]
     },
     {
-        title: "Core Concepts",
+        title: "Components",
+        icon: Box,
         items: [
-            { label: "Game Loop", href: "/docs/game-loop" },
-            { label: "Scenes", href: "/docs/scenes" },
-            { label: "Entities", href: "/docs/entities" },
+            { label: "BlazeGame", href: "/docs/components/blaze-game" },
+            { label: "Sprites", href: "/docs/components/sprites" },
+            { label: "Shapes", href: "/docs/components/shapes" },
+            { label: "Text", href: "/docs/components/text" },
         ]
     },
     {
         title: "Rendering",
+        icon: Layers,
         items: [
-            { label: "Sprites", href: "/docs/sprites" },
-            { label: "Animation", href: "/docs/animation" },
             { label: "Camera", href: "/docs/camera" },
+            { label: "Parallax", href: "/docs/parallax" },
+            { label: "Particles", href: "/docs/particles" },
         ]
     },
     {
-        title: "Hooks API",
+        title: "World & Physics",
+        icon: Gamepad2,
         badge: "NEW",
         items: [
-            { label: "useGame", href: "/docs/hooks/use-game" },
+            { label: "Tilemap", href: "/docs/tilemap" },
+            { label: "Rigidbody", href: "/docs/rigidbody" },
+            { label: "Collision", href: "/docs/collision" },
+            { label: "Scenes", href: "/docs/scenes" },
+        ]
+    },
+    {
+        title: "UI Components",
+        icon: Layout,
+        badge: "NEW",
+        items: [
+            { label: "Joystick", href: "/docs/ui/joystick" },
+            { label: "Button", href: "/docs/ui/button" },
+            { label: "ProgressBar", href: "/docs/ui/progress-bar" },
+            { label: "NineSlice", href: "/docs/ui/nine-slice" },
+        ]
+    },
+    {
+        title: "Hooks",
+        icon: Code2,
+        items: [
             { label: "useGameLoop", href: "/docs/hooks/use-game-loop" },
-            { label: "useTouch", href: "/docs/hooks/use-touch" },
+            { label: "useInput", href: "/docs/hooks/use-input" },
+            { label: "useCollision", href: "/docs/hooks/use-collision" },
+            { label: "useTimer", href: "/docs/hooks/use-timer" },
+            { label: "useTween", href: "/docs/hooks/use-tween" },
             { label: "useAssets", href: "/docs/hooks/use-assets" },
+            { label: "useAudio", href: "/docs/hooks/use-audio" },
+        ]
+    },
+    {
+        title: "Effects",
+        icon: Sparkles,
+        items: [
+            { label: "Screen Shake", href: "/docs/effects/screen-shake" },
+            { label: "Easing Functions", href: "/docs/effects/easing" },
         ]
     }
 ]
 
 export function Sidebar() {
     return (
-        <nav className="space-y-5 sm:space-y-6">
+        <nav className="space-y-6">
             {sections.map((section, idx) => (
-                <div key={idx}>
-                    <h4 className="text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2 sm:mb-3 flex items-center gap-2">
-                        {section.title}
+                <div key={idx} className="docs-sidebar-section">
+                    {/* Section header */}
+                    <div className="flex items-center gap-2 px-3 mb-3">
+                        <section.icon className="w-4 h-4 text-neutral-600" />
+                        <h4 className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                            {section.title}
+                        </h4>
                         {section.badge && (
-                            <span className="px-1.5 py-0.5 bg-orange-500/20 text-orange-400 text-[9px] sm:text-[10px] font-bold rounded">
+                            <span className="px-1.5 py-0.5 text-[9px] font-bold bg-orange-500/20 text-orange-400 rounded">
                                 {section.badge}
                             </span>
                         )}
-                    </h4>
-                    <ul className="space-y-0.5 sm:space-y-1">
+                    </div>
+
+                    {/* Section items */}
+                    <ul className="space-y-0.5">
                         {section.items.map((item, i) => (
                             <li key={i}>
                                 <NavLink
                                     to={item.href}
                                     end={item.href === '/docs'}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-2 px-3 py-2.5 sm:py-2 rounded-lg text-sm transition-all ${isActive
-                                            ? 'bg-orange-500/10 text-orange-400 font-medium'
-                                            : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
-                                        }`
+                                        `docs-sidebar-link ${isActive ? 'docs-sidebar-link-active' : ''}`
                                     }
                                 >
-                                    <ChevronRight className="w-3 h-3 opacity-50 shrink-0" />
-                                    <span className="truncate">{item.label}</span>
+                                    <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+                                    <span>{item.label}</span>
                                 </NavLink>
                             </li>
                         ))}
                     </ul>
                 </div>
             ))}
+
+            {/* Bottom resources */}
+            <div className="pt-6 mt-6 border-t border-white/5">
+                <div className="px-3 text-[11px] font-bold text-neutral-500 uppercase tracking-wider mb-3">
+                    Examples
+                </div>
+                <ul className="space-y-0.5">
+                    <li>
+                        <NavLink to="/docs/examples/space-shooter" className="docs-sidebar-link">
+                            <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+                            <span>🚀 Space Shooter</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/docs/examples/platformer" className="docs-sidebar-link">
+                            <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+                            <span>🎮 Platformer</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/docs/examples/endless-runner" className="docs-sidebar-link">
+                            <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+                            <span>🏃 Endless Runner</span>
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+
+            {/* Resources section removed */}
         </nav>
     )
 }

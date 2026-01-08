@@ -1,166 +1,90 @@
-
-# Blaze Engine 🔥
-
-**The Flame for React Native**
+# Blaze Engine
 
 <div align="center">
-
-[![npm version](https://img.shields.io/npm/v/blaze-engine?style=flat-square&color=orange)](https://www.npmjs.com/package/blaze-engine)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![React Native](https://img.shields.io/badge/React_Native-0.71+-cyan?style=flat-square&logo=react)](https://reactnative.dev/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
+  <img src="https://blaze-engine.pages.dev/logo.webp" alt="Blaze Engine Logo" width="120" />
+  <h1>Blaze Engine</h1>
+  <p><strong>The Universal 2D Game Engine for React</strong></p>
+  
+  <p>
+    <a href="https://www.npmjs.com/package/blaze-engine"><img src="https://img.shields.io/npm/v/blaze-engine.svg?style=flat-square" alt="NPM Version" /></a>
+    <a href="https://www.npmjs.com/package/blaze-engine"><img src="https://img.shields.io/npm/l/blaze-engine.svg?style=flat-square" alt="License" /></a>
+    <a href="https://www.npmjs.com/package/blaze-engine"><img src="https://img.shields.io/npm/dm/blaze-engine.svg?style=flat-square" alt="Downloads" /></a>
+  </p>
 </div>
-
-Blaze is a universal 2D game engine for **React**, **Next.js**, and **React Native**. 
-Powered by **Skia** (Chrome's rendering engine), it delivers 60fps performance on all platforms with a single codebase.
-
-It brings a [Flame](https://flame-engine.org/)-like development experience to the React ecosystem, offering both a robust **ECS** (Entity-Component-System) and a modern **React Hooks** API.
-
-![Blaze Engine Demo](https://raw.githubusercontent.com/blaze-engine/blaze/main/assets/demo.gif)
-
-## � Universal Support Matrix
-
-| Platform | Rendering Engine | Input Support | Audio |
-|----------|------------------|---------------|-------|
-| **iOS** | JSI / Skia Native | Multi-touch | expo-av |
-| **Android** | JSI / Skia Native | Multi-touch | expo-av |
-| **Web** (React) | WebAssembly (CanvasKit) | Mouse & Keyboard | Web Audio |
-| **Next.js** | WebAssembly (SSR-Safe) | Mouse & Keyboard | Web Audio |
-
-## 🌟 Key Features
-
-*   **Universal Codebase**: Write your game once, run it on mobile and web.
-*   **React Hooks API**: `useGame`, `useGameLoop`, `useTouch` for a purely functional approach.
-*   **ECS Architecture**: Classic Entity-Component class system for complex logic.
-*   **Physics Lite**: Built-in AABB collision detection and spatial partitioning.
-*   **Input System**: Normalized touch/mouse input and keyboard support.
-*   **Assets**: Unified asset loading for images, spritesheets, and audio.
 
 ---
 
-## 📦 Installation
+**Blaze Engine** is a high-performance, React-first 2D game engine designed for building cross-platform games using standard React components and hooks. Whether you are building for the web (React.js), desktop (Next.js/Electron), or mobile (React Native), Blaze provides a unified API.
+
+It abstracts away the complexities of the game loop, canvas rendering, and physics, allowing you to focus on building game logic using the React patterns you already know.
+
+## Features
+
+- **React-First Architecture**: Build games using functional components and hooks (`useGameLoop`, `useCollision`, `useInput`).
+- **Universal Compatibility**: Works seamlessly on Web, iOS, and Android.
+- **Camera System**: Built-in camera with smooth follow, zoom, rotation, and screen shake.
+- **Tilemaps**: Easy support for grid-based levels and worlds using standard data structures.
+- **Particle System**: Create advanced visual effects like fire, smoke, and explosions with high performance.
+- **Input Handling**: Unified API for Keyboard, Mouse, and Touch controls (including virtual Joystick).
+- **Audio Management**: Simple hook-based audio manager (`useAudio`) for sound effects and music.
+- **Physics Engine**: Lightweight 2D physics engine (`Rigidbody`) for gravity, velocity, and collisions.
+
+## Installation
+
+To install Blaze Engine, run the following command in your project directory:
 
 ```bash
 npm install blaze-engine
+# or
+yarn add blaze-engine
 ```
 
-### Peer Dependencies
-You must install these peer dependencies (handled automatically by modern package managers):
+## Quick Start
 
-```bash
-npm install @shopify/react-native-skia react-native-gesture-handler expo-av
-```
-
-### Web Setup (Vite / Next.js)
-If you are using **Vite**, add this alias to your `vite.config.ts` if needed (usually handled by `react-native-web`):
-```ts
-resolve: {
-  alias: {
-    'react-native': 'react-native-web'
-  }
-}
-```
-
-For **Next.js**, ensure you transpile the modules in `next.config.js`:
-```js
-const nextConfig = {
-  transpilePackages: ['blaze-engine', '@shopify/react-native-skia']
-};
-```
-
----
-
-## 🚀 Quick Start
-
-### The "React Way" (Hooks)
-Perfect for simple games, UI-heavy experiences, and prototyping.
+Here is a simple example of a player moving with keyboard controls. Notice how game logic is handled inside a standard React functional component.
 
 ```tsx
 import React, { useState } from 'react';
-import { BlazeCanvas, useGame, useGameLoop, useTouch, SpriteComponent } from 'blaze-engine';
+import { BlazeGame, Sprite, useGameLoop, useInput } from 'blaze-engine';
 
-export default function SimpleGame() {
-  // Initialize game - works on Web & Native!
-  const { game } = useGame({ width: 360, height: 640 });
-  
-  // Game State
-  const [playerX, setPlayerX] = useState(100);
-  const { isTouching, x: touchX } = useTouch();
+function Player() {
+  const [x, setX] = useState(100);
+  const [y, setY] = useState(100);
+  const input = useInput();
+  const SPEED = 200; // pixels per second
 
-  // The Game Loop (60fps)
+  // The game loop runs at 60fps (or native refresh rate)
   useGameLoop((dt) => {
-    if (isTouching) {
-      // Smoothly move player to touch position
-      setPlayerX(prev => prev + (touchX - prev) * 5 * dt);
+    if (input.isKeyDown('ArrowRight')) {
+      setX((prev) => prev + SPEED * dt);
+    }
+    if (input.isKeyDown('ArrowLeft')) {
+      setX((prev) => prev - SPEED * dt);
     }
   });
 
+  return <Sprite src="/player.png" x={x} y={y} />;
+}
+
+export default function Game() {
   return (
-    <BlazeCanvas game={game}>
-      {/* Render Game Objects as Components */}
-      <SpriteComponent 
-        source={require('./assets/player.png')}
-        x={playerX} 
-        y={500} 
-        width={50} 
-        height={50} 
-      />
-    </BlazeCanvas>
+    <BlazeGame width={800} height={600}>
+      <Player />
+    </BlazeGame>
   );
 }
 ```
 
-### The "Engine Way" (ECS)
-Ideal for complex games with hundreds of entities, physics, and strict architecture.
+## Documentation
 
-```typescript
-import { Game, Scene, Entity, Sprite, Collider } from 'blaze-engine';
+For full documentation, including detailed API references, guides, and examples, please visit our official documentation site:
 
-class Player extends Entity {
-  onLoad() {
-    this.add(new Sprite({ image: 'player.png' }));
-    this.add(Collider.centered(50, 50));
-  }
-  
-  onUpdate(dt: number) {
-    if (this.game.keyboard.isKeyDown('Space')) {
-      this.position.y -= 100 * dt;
-    }
-  }
-}
+[**Read the Documentation**](https://blaze-engine.pages.dev)
 
-class MainScene extends Scene {
-  onStart() {
-    this.addEntity(new Player());
-  }
-}
+## Contributing
 
-// Start the game
-const game = new Game({ width: 360, height: 640 });
-game.start(new MainScene());
-```
+We welcome contributions from the community. Please feel free to suggest features or report bugs via NPM or our community channels.
 
----
+## License
 
-## 📚 Documentation
-
-Visit our full documentation site for detailed guides:
-👉 **[blaze-engine.com](https://blaze-engine.com)**
-
-### Core Concepts
-
-*   **Game**: The root object. Manages the loop, renderer, and global state.
-*   **Scene**: Represents a distinct game state (Menu, Level, GameOver).
-*   **Entity**: The base class for all game objects. Can have children.
-*   **Component**: Logic or data attached to Entities (e.g., `Sprite`, `Collider`, `Script`).
-*   **Systems**: Global managers like `Input`, `Physics`, `Audio`.
-
-## 🤝 Contributing
-
-We welcome contributions! Please check out our [Contributing Guide](CONTRIBUTING.md).
-
-## 📄 License
-
-MIT © [ItzPratapDevs](https://github.com/itzpratapdevs)
+MIT © 2026.

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -104,6 +105,327 @@ code {
 }
 
 /* ========================================
+   DOCS PAGE PREMIUM STYLES
+   ======================================== */
+
+/* Docs page specific styles */
+.docs-page {
+  background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+}
+
+/* Premium prose styling for docs */
+.docs-prose {
+  --tw-prose-body: #b3b3b3;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-links: #f97316;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-code: #fbbf24;
+  --tw-prose-bullets: #525252;
+}
+
+.docs-prose h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.docs-prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.docs-prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #f5f5f5;
+}
+
+.docs-prose p {
+  color: #a3a3a3;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.docs-prose strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.docs-prose a {
+  color: #f97316;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.docs-prose a:hover {
+  color: #fb923c;
+  border-bottom-color: #fb923c;
+}
+
+.docs-prose ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+.docs-prose ul li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #a3a3a3;
+  line-height: 1.7;
+}
+
+.docs-prose ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
+  border-radius: 50%;
+}
+
+.docs-prose ol {
+  counter-reset: docs-counter;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+.docs-prose ol li {
+  counter-increment: docs-counter;
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 1rem;
+  color: #a3a3a3;
+  line-height: 1.7;
+}
+
+.docs-prose ol li::before {
+  content: counter(docs-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f97316;
+}
+
+/* Inline code */
+.docs-prose code:not(pre code) {
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: 6px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.85em;
+  color: #fbbf24;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Code blocks in docs */
+.docs-prose pre {
+  background: #0d1117 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Blockquotes / callouts */
+.docs-prose blockquote {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+  border-left: 4px solid #f97316;
+  border-radius: 0 12px 12px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  color: #d4d4d4;
+}
+
+.docs-prose blockquote p {
+  margin: 0;
+}
+
+/* Tables */
+.docs-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.docs-prose thead {
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.docs-prose th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.docs-prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #a3a3a3;
+}
+
+.docs-prose tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Horizontal rule */
+.docs-prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  margin: 2.5rem 0;
+}
+
+/* ========================================
+   DOCS CODE BLOCK STYLES
+   ======================================== */
+
+.docs-code-block {
+  position: relative;
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.docs-code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.docs-code-block-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.docs-code-block-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.docs-code-block-dot-red {
+  background: #ff5f57;
+}
+
+.docs-code-block-dot-yellow {
+  background: #febc2e;
+}
+
+.docs-code-block-dot-green {
+  background: #28c840;
+}
+
+.docs-code-block-lang {
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #525252;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.docs-code-block-copy {
+  padding: 0.5rem;
+  color: #525252;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.docs-code-block-copy:hover {
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.1);
+}
+
+/* ========================================
+   DOCS SIDEBAR STYLES
+   ======================================== */
+
+.docs-sidebar-section {
+  margin-bottom: 1.5rem;
+}
+
+.docs-sidebar-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #525252;
+  margin-bottom: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+.docs-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  color: #737373;
+  font-size: 0.875rem;
+  transition: all 0.15s ease;
+  border-left: 2px solid transparent;
+}
+
+.docs-sidebar-link:hover {
+  color: #d4d4d4;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.docs-sidebar-link-active {
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.08);
+  border-left-color: #f97316;
+}
+
+.docs-sidebar-link-active:hover {
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.12);
+}
+
+/* ========================================
    MOBILE RESPONSIVE STYLES
    ======================================== */
 
@@ -132,9 +454,21 @@ pre {
     border-radius: 12px;
     font-size: 0.75rem;
   }
-  
+
   code {
     font-size: 0.75rem;
+  }
+
+  .docs-prose h1 {
+    font-size: 1.75rem;
+  }
+
+  .docs-prose h2 {
+    font-size: 1.25rem;
+  }
+
+  .docs-prose h3 {
+    font-size: 1.1rem;
   }
 }
 
@@ -144,23 +478,23 @@ pre {
     font-size: 1.75rem;
     line-height: 1.2;
   }
-  
+
   .prose h2 {
     font-size: 1.35rem;
     line-height: 1.3;
   }
-  
+
   .prose h3 {
     font-size: 1.15rem;
     line-height: 1.4;
   }
-  
+
   .prose p,
   .prose li {
     font-size: 0.9rem;
     line-height: 1.6;
   }
-  
+
   .prose ul,
   .prose ol {
     padding-left: 1.25rem;
@@ -169,13 +503,16 @@ pre {
 
 /* Better touch targets on mobile */
 @media (max-width: 768px) {
-  a, button {
+
+  a,
+  button {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Exception for inline links */
-  .prose a {
+  .prose a,
+  .docs-prose a {
     min-height: auto;
     min-width: auto;
   }
@@ -198,7 +535,8 @@ pre {
 }
 
 /* Prevent horizontal overflow */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
@@ -214,7 +552,7 @@ img {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   .mobile-text-center {
     text-align: center;
   }
